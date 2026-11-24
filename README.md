@@ -87,7 +87,7 @@ Para parar: `docker compose down` (use `-v` para apagar também o volume do banc
 
 - [x] Dia 1: Engenharia do projeto (ambiente Docker)
 - [x] Dia 2: Arquitetura e docs (`docs/architecture.md`, `docs/claude.md`)
-- [ ] Dia 3: TDD (testes falhando, incluindo autenticação e autorização)
+- [x] Dia 3: TDD (testes falhando, incluindo autenticação e autorização)
 - [ ] Dia 4: Backend (inclui autenticação JWT + RBAC)
 - [ ] Dia 5: Refatoração e AuditLog
 - [ ] Dia 6: Frontend (inclui login)
