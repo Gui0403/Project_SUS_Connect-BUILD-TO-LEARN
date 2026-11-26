@@ -25,6 +25,7 @@ class Settings:
     lockout_minutes: int
     first_admin_email: str | None
     first_admin_password: str | None
+    exam_storage_dir: str
 
 
 settings = Settings(
@@ -39,4 +40,5 @@ settings = Settings(
     lockout_minutes=15,
     first_admin_email=os.environ.get("FIRST_ADMIN_EMAIL"),
     first_admin_password=os.environ.get("FIRST_ADMIN_PASSWORD"),
+    exam_storage_dir=os.environ.get("EXAM_STORAGE_DIR", "/data/exams"),
 )

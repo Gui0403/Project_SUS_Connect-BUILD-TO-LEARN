@@ -19,6 +19,7 @@ services:
       - "8000:8000"
     volumes:
       - ./apps/api:/app
+      - exam_files:/data/exams
     depends_on:
       postgres:
         condition: service_healthy
@@ -37,3 +38,4 @@ services:
 
 volumes:
   pgdata:
+  exam_files:

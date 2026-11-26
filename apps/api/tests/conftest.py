@@ -8,6 +8,7 @@ Convenções (docs/architecture.md, seção 13):
 """
 
 import os
+import tempfile
 import uuid
 from dataclasses import dataclass, field
 from pathlib import Path
@@ -22,6 +23,9 @@ _url = make_url(os.environ["DATABASE_URL"])
 if not _url.database.endswith("_test"):
     _url = _url.set(database=f"{_url.database}_test")
 os.environ["DATABASE_URL"] = _url.render_as_string(hide_password=False)
+
+# Arquivos de exame dos testes vão para uma pasta temporária (nunca para o volume real).
+os.environ["EXAM_STORAGE_DIR"] = tempfile.mkdtemp(prefix="sus-exams-")
 
 from fastapi.testclient import TestClient  # noqa: E402
 

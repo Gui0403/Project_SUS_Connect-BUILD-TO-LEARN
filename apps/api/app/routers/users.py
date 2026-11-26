@@ -5,7 +5,7 @@ from sqlalchemy.orm import Session
 
 from app.database import get_db
 from app.deps import require_roles
-from app.models import Role, User
+from app.models import Doctor, Role, User
 from app.schemas import UserCreate, UserOut
 from app.security import hash_password
 
@@ -21,6 +21,9 @@ def create_user(
     if db.scalar(select(User.id).where(User.email == body.email)) is not None:
         raise HTTPException(status_code=409, detail="Email already registered")
 
+    if body.doctor_id is not None and db.get(Doctor, body.doctor_id) is None:
+        raise HTTPException(status_code=404, detail="Doctor not found")
+
     user = User(
         email=body.email,
         password_hash=hash_password(body.password),
@@ -34,5 +37,8 @@ def create_user(
         db.commit()
     except IntegrityError:
         db.rollback()
-        raise HTTPException(status_code=409, detail="Email already registered")
+        # e-mail já cadastrado, ou profissional já vinculado a outro usuário
+        raise HTTPException(
+            status_code=409, detail="User already exists or doctor already linked"
+        )
     return user
